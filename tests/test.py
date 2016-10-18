@@ -8,7 +8,6 @@ CONSUMER_KEY = os.environ['TWITTER_KEY']
 CONSUMER_SECRET = os.environ['TWITTER_SECRET']
 
 # print(auth)
-
 twitter = Twython(app_key=CONSUMER_KEY, app_secret=CONSUMER_SECRET)
 user_timeline = twitter.get_user_timeline(screen_name="NgoTrongTrung")
 auth = twitter.get_authentication_tokens()
