@@ -16,8 +16,10 @@ OAUTH_TOKEN = auth['oauth_token']
 OAUTH_TOKEN_SECRET = auth['oauth_token_secret']
 
 oauth_verifier_url = auth['auth_url']
+print(oauth_verifier_url)
 print('Verifier ...')
 oauth_verifier = requests.get(oauth_verifier_url)
+print(oauth_verifier.text)
 twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 # Getting the FINAL authentication tokens
