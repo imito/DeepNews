@@ -66,6 +66,9 @@ class TwitterMiner(Miner):
         self.twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET,
                                OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
+    def _news(self):
+        pass
+
     def get_timeline(self, user_name=None, user_id=None):
         kwargs = {}
         if user_name is not None:

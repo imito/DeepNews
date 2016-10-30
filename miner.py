@@ -33,6 +33,10 @@ class Miner(object):
     def _authenticate(self):
         pass
 
+    @abstractmethod
+    def _news(self):
+        pass
+
     # ==================== API methods ==================== #
     def authenticate(self):
         if not self._is_authenticated:
@@ -46,6 +50,9 @@ class Miner(object):
 
     def get_timeline(self, user_name=None, user_id=None):
         raise NotImplementedError
+
+    def get_news(self):
+        return self._news()
 
     def reset(self):
         if os.path.exists(self.cache_path):
