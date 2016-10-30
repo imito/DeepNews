@@ -64,3 +64,11 @@ class TwitterMiner(Miner):
         # ====== authorized ====== #
         self.twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET,
                                OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+
+    def get_timeline(self, user_name=None, user_id=None):
+        kwargs = {}
+        if user_name is not None:
+            kwargs['screen_name'] = user_name
+        if user_id is not None:
+            kwargs['user_id'] = user_id
+        return self.twitter.get_user_timeline(**kwargs)

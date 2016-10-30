@@ -44,6 +44,9 @@ class Miner(object):
             self._is_authenticated = True
         return self
 
+    def get_timeline(self, user_name=None, user_id=None):
+        raise NotImplementedError
+
     def reset(self):
         if os.path.exists(self.cache_path):
             os.remove(self.cache_path)
