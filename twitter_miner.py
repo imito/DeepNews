@@ -45,13 +45,14 @@ class TwitterMiner(Miner):
             user_id = final_step['user_id']
             screen_name = final_step['screen_name']
             # ====== save everything ====== #
-            cPickle.dump({'CONSUMER_KEY': CONSUMER_KEY,
-                          'CONSUMER_SECRET': CONSUMER_SECRET,
-                          'OAUTH_TOKEN': OAUTH_TOKEN,
-                          'OAUTH_TOKEN_SECRET': OAUTH_TOKEN_SECRET,
-                          'user_id': user_id,
-                          'screen_name': screen_name},
-                         open(self.cache_path, 'w'), protocol=cPickle.HIGHEST_PROTOCOL)
+            configuration = {'CONSUMER_KEY': CONSUMER_KEY,
+                             'CONSUMER_SECRET': CONSUMER_SECRET,
+                             'OAUTH_TOKEN': OAUTH_TOKEN,
+                             'OAUTH_TOKEN_SECRET': OAUTH_TOKEN_SECRET,
+                             'user_id': user_id,
+                             'screen_name': screen_name}
+            cPickle.dump(configuration, open(self.cache_path, 'w'),
+                         protocol=cPickle.HIGHEST_PROTOCOL)
         # Load old authentication information
         else:
             _ = cPickle.load(open(self.cache_path, 'r'))
