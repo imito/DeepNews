@@ -51,23 +51,28 @@ class TwitterMiner(Miner):
                              'OAUTH_TOKEN_SECRET': OAUTH_TOKEN_SECRET,
                              'user_id': user_id,
                              'screen_name': screen_name}
-            cPickle.dump(configuration, open(self.cache_path, 'w'),
-                         protocol=cPickle.HIGHEST_PROTOCOL)
         # Load old authentication information
         else:
-            _ = cPickle.load(open(self.cache_path, 'r'))
-            CONSUMER_KEY = _['CONSUMER_KEY']
-            CONSUMER_SECRET = _['CONSUMER_SECRET']
-            OAUTH_TOKEN = _['OAUTH_TOKEN']
-            OAUTH_TOKEN_SECRET = _['OAUTH_TOKEN_SECRET']
-            user_id = _['user_id']
-            screen_name = _['screen_name']
+            configuration = cPickle.load(open(self.cache_path, 'r'))
+            CONSUMER_KEY = configuration['CONSUMER_KEY']
+            CONSUMER_SECRET = configuration['CONSUMER_SECRET']
+            OAUTH_TOKEN = configuration['OAUTH_TOKEN']
+            OAUTH_TOKEN_SECRET = configuration['OAUTH_TOKEN_SECRET']
+            user_id = configuration['user_id']
+            screen_name = configuration['screen_name']
         # ====== authorized ====== #
+        self.configurations = configuration
+        self.cache()
         self.twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET,
                                OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
     def _news(self):
-        pass
+        if 'list_name' not in self.configurations:
+            list_name = raw_input('Input name of twitter list for mining:')
+            self.configurations['list_name'] = list_name
+            # cache the list name for using again next time
+            self.cache()
+        # TODO
 
     def get_timeline(self, user_name=None, user_id=None):
         kwargs = {}

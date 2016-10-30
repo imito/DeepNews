@@ -4,6 +4,7 @@
 from __future__ import print_function, division, absolute_import
 
 import os
+import cPickle
 from six import add_metaclass
 from abc import ABCMeta, abstractmethod
 
@@ -22,6 +23,12 @@ class Miner(object):
     @property
     def authenticated(self):
         return self._is_authenticated
+
+    def cache(self):
+        """ Call this method to cache any new configuration to disk """
+        cPickle.dump(self.configurations, open(self.cache_path, 'w'),
+                     protocol=cPickle.HIGHEST_PROTOCOL)
+        return self
 
     @property
     def cache_path(self):
@@ -58,3 +65,4 @@ class Miner(object):
         if os.path.exists(self.cache_path):
             os.remove(self.cache_path)
         self._is_authenticated = False
+        self.configurations = {}
