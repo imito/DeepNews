@@ -6,7 +6,6 @@ import requests
 import webbrowser
 from twython import Twython
 
-
 from odin import utils
 
 # ===========================================================================
@@ -67,3 +66,4 @@ twitter = Twython(CONSUMER_KEY, CONSUMER_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 timeline = twitter.get_user_timeline(screen_name=screen_name)
 print(timeline)
+twitter.get_user_timeline

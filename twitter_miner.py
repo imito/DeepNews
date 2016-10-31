@@ -19,6 +19,7 @@ class TwitterMiner(Miner):
 
     def __init__(self):
         super(TwitterMiner, self).__init__()
+        self._last_update = None
 
     def _authenticate(self):
         if not os.path.exists(self.cache_path):
@@ -73,6 +74,13 @@ class TwitterMiner(Miner):
             # cache the list name for using again next time
             self.cache()
         # TODO
+        lists = [list for list in self.twitter.show_lists()]
+        lists_id = [lists[i]['id'] for i in range(0, len(lists)) ]
+        status = []
+        for i in lists_id:
+            status.append(self.twitter.get_list_statuses(list_id=i))
+        return status
+
 
     def get_timeline(self, user_name=None, user_id=None):
         kwargs = {}
